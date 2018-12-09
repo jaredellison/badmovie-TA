@@ -1,3 +1,5 @@
+
+
 # Bad Movies Mock TA Notes
 
 *Start time 10:30*
@@ -47,26 +49,92 @@ Mysql
 ## To Do
 
 - [x] Explore existing codebase
-- [ ] Set up boiler plate react app
-- [ ] Set up boiler plate express server to serve app
-- [ ] Get API key and make basic GET requests
+
+- [x] Get API key 
+
+- [x] Set up boiler plate react app
+
+- [x] Set up boiler plate express server to serve app
+
+- [x] make basic API GET requests from node server
+
+  https://www.themoviedb.org/documentation/api
+
+  - [x] Learn how:
+
+    - [x] make a get request for a list of genres:
+
+      `curl https://api.themoviedb.org/3/genre/movie/list?api_key=a67c6ad0fb5de896557e4cc755be70af&language=en-US`
+
+    - [x] make a get request based on a search
+      https://developers.themoviedb.org/3/search/search-movies
+
+    - [x] make a get request based on a genre
+
+      Need to plug a genre number into query like this:
+
+      ```
+      curl https://api.themoviedb.org/3/discover/movie?api_key=a67c6ad0fb5de896557e4cc755be70af&language=en-US&sort_by=popularity.asc&include_adult=false&include_video=false&page=1&with_genres=37
+      ```
+
+      https://www.themoviedb.org/documentation/api/discover
+
+    - [x] make a get request based on a movie ID
+
 - [ ] Set up database
+
   - [ ] Create database schema
-    - [ ] Title VARCHAR(500)
-    - [ ] URL?  VARCHAR(500)
-    - [ ] Favorite BOOLEAN
+    - [ ] ID
+    - [ ] title VARCHAR(500)
+    - [ ] tmage  VARCHAR(500)
+    - [ ] description  VARCHAR(1000)
+    - [ ] tmdb_ID INT
   - [ ] CRUD Queries
     - [ ] CREATE: query to insert new favorite
     - [ ] READ: query to list all favorites
     - [x] UPDATE: not required
     - [ ] Delete: query to remove a favorite
   - [ ] Manually manipulate database
+
 - [ ] Integrate database manipulation with server
+
   - [ ] Test with CURL or postman
+
 - [ ] Integrate client with server database manipulation
 
 ## Questions:
 
 - [ ] Do we need to create a user account?
 - [ ] Do users search by a query string or just by genre?
+
+## Notes:
+
+TMDB Genres:
+
+```
+{
+  genres: [
+    { id: 28, name: 'Action' },
+    { id: 12, name: 'Adventure' },
+    { id: 16, name: 'Animation' },
+    { id: 35, name: 'Comedy' },
+    { id: 80, name: 'Crime' },
+    { id: 99, name: 'Documentary' },
+    { id: 18, name: 'Drama' },
+    { id: 10751, name: 'Family' },
+    { id: 14, name: 'Fantasy' },
+    { id: 36, name: 'History' },
+    { id: 27, name: 'Horror' },
+    { id: 10402, name: 'Music' },
+    { id: 9648, name: 'Mystery' },
+    { id: 10749, name: 'Romance' },
+    { id: 878, name: 'Science Fiction' },
+    { id: 10770, name: 'TV Movie' },
+    { id: 53, name: 'Thriller' },
+    { id: 10752, name: 'War' },
+    { id: 37, name: 'Western' }
+  ]
+};
+
+```
 
