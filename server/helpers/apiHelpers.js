@@ -23,21 +23,21 @@ exports.fetch.genreList = () => {
       api_key: API_KEY,
       language: 'en-US'
     }
-  })
-  .then(response => {
+  }).then(response => {
     // console.log(response.data.genres);
     return response.data.genres;
-  })
+  });
   // .catch(err => {
   //   console.log('error fetching genre list:', err);
   // });
 };
 
-// Example IDS:
+// Example Ids:
 //    Romance: 10749
 //    Western: 37
-exports.fetch.byGenreID = genreID => {
-  axios({
+exports.fetch.byGenreId = genreId => {
+  // console.log('Fetch by genreId called with genre:', genreId);
+  return axios({
     method: 'get',
     url: 'https://api.themoviedb.org/3/discover/movie',
     params: {
@@ -48,11 +48,12 @@ exports.fetch.byGenreID = genreID => {
       sort_by: 'popularity.asc', // Get worst movies first
       include_adult: 'false',
       include_video: 'false',
-      with_genres: genreID
+      with_genres: genreId
     }
   })
     .then(response => {
-      console.log(response.data);
+      // console.log(response.data);
+      return response.data;
     })
     .catch(err => {
       console.log('error fetching movies by genre:', err);
@@ -60,7 +61,7 @@ exports.fetch.byGenreID = genreID => {
 };
 
 exports.fetch.byQuery = q => {
-  axios({
+  return axios({
     method: 'get',
     url: 'https://api.themoviedb.org/3/search/movie',
     params: {
@@ -83,11 +84,11 @@ exports.fetch.byQuery = q => {
 };
 
 // Example id for Airbud spikes back:
-24794;
-exports.fetch.byID = movieID => {
-  axios({
+// 24794
+exports.fetch.byId = movieId => {
+  return axios({
     method: 'get',
-    url: `https://api.themoviedb.org/3/movie/${movieID}`,
+    url: `https://api.themoviedb.org/3/movie/${movieId}`,
     params: {
       api_key: API_KEY,
       language: 'en-US'
