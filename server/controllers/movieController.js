@@ -16,6 +16,7 @@ module.exports = {
       res.sendStatus(404);
     });
   },
+
   getGenres: (req, res) => {
     apiHelpers.fetch.genreList()
     .then((list) => {
@@ -28,6 +29,26 @@ module.exports = {
     });
   },
 
-  saveMovie: (req, res) => {},
-  deleteMovie: (req, res) => {}
+  saveMovie: (req, res) => {
+    // title, id, release_date, poster_path, backdrop_path, vote_average
+    let m = req.body;
+    params = [m.title, m.id, m.release_date, m.poster_path, m.backdrop_path, m.vote_average];
+    // .map(e => e.toString());
+    movieModel.set(params, () => {
+      res.sendStatus(201);
+    })
+  },
+
+  deleteMovie: (req, res) => {
+    let m = req.body;
+    params = [m.id]
+    .map(e => e.toString());
+    movieModel.delete(params, () => {
+      res.sendStatus(202);
+    })
+  }
+
+  getDbMovies: (req, res) => {
+
+  }
 };
