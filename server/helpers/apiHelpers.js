@@ -13,9 +13,9 @@ const { API_KEY } = require('../../api-key.js');
 
 // Don't forget to export your functions and require them within your server file
 
-exports.fetchers = {};
+exports.fetch = {};
 
-exports.fetchers.genreList = () => {
+exports.fetch.genreList = () => {
   axios({
     method: 'get',
     url: 'https://api.themoviedb.org/3/genre/movie/list',
@@ -35,7 +35,7 @@ exports.fetchers.genreList = () => {
 // Example IDS:
 //    Romance: 10749
 //    Western: 37
-exports.fetchers.discoverByGenre = genreID => {
+exports.fetch.byGenreID = genreID => {
   axios({
     method: 'get',
     url: 'https://api.themoviedb.org/3/discover/movie',
@@ -58,7 +58,7 @@ exports.fetchers.discoverByGenre = genreID => {
     });
 };
 
-exports.fetchers.search = q => {
+exports.fetch.byQuery = q => {
   axios({
     method: 'get',
     url: 'https://api.themoviedb.org/3/search/movie',
@@ -81,4 +81,21 @@ exports.fetchers.search = q => {
     });
 };
 
-exports.fetchers.search('air bud');
+// Example id for Airbud spikes back:
+24794;
+exports.fetch.byID = movieID => {
+  axios({
+    method: 'get',
+    url: `https://api.themoviedb.org/3/movie/${movieID}`,
+    params: {
+      api_key: API_KEY,
+      language: 'en-US'
+    }
+  })
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(err => {
+      console.log('error fetching movies by id:', err);
+    });
+};
