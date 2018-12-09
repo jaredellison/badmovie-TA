@@ -11,12 +11,15 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-    this.getGenres();
+    this.getGenres()
+    .then( () => {
+      this.props.getMovies(this.state.currentGenre);
+    })
   }
 
   getGenres() {
     //make an axios request in this component to get the list of genres from your endpoint GET GENRES
-    axios({
+    return axios({
       method: 'get',
       url: '/movies/genres',
     })
@@ -52,7 +55,6 @@ class Search extends React.Component {
         <br/><br/>
 
         <button onClick={() => {
-          console.log('click event', this.state.currentGenre);
           this.props.getMovies(this.state.currentGenre);
           }}>
         Search

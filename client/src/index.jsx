@@ -31,7 +31,7 @@ class App extends React.Component {
       }
     })
     .then(response => {
-      // console.log('search fetch data:', response.data);
+      console.log('search fetch data:', response.data.results);
       this.setState({movies: response.data.results});
     })
     .catch(err => {
