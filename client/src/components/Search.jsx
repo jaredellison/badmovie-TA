@@ -51,7 +51,12 @@ class Search extends React.Component {
         </select>
         <br/><br/>
 
-        <button>Search</button>
+        <button onClick={() => {
+          console.log('click event', this.state.currentGenre);
+          this.props.getMovies(this.state.currentGenre);
+          }}>
+        Search
+        </button>
       </div>
     );
   }

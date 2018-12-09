@@ -5,6 +5,8 @@ import $ from 'jquery';
 import Search from './components/Search.jsx'
 import Movies from './components/Movies.jsx'
 
+import axios from 'axios';
+
 class App extends React.Component {
   constructor(props) {
   	super(props)
@@ -13,12 +15,28 @@ class App extends React.Component {
       favorites: [{deway: "favorites"}],
       showFaves: false,
     };
-    
-    // you might have to do something important here!
+
+    // Bind event handler methods to be passed as props
+    this.getMovies = this.getMovies.bind(this);
   }
 
-  getMovies() {
+  getMovies(genreId = '37') {
     // make an axios request to your server on the GET SEARCH endpoint
+    console.log('getMovies called! with id:', genreId)
+    axios({
+      method: 'get',
+      url: '/movies/search',
+      params: {
+        genreId: genreId
+      }
+    })
+    .then(response => {
+      console.log('search fetch data:', response.data);
+        // this.setState({movies: response.data});
+    })
+    .catch(err => {
+      console.log('error fetching search:', err);
+    });
   }
 
   saveMovie() {
@@ -39,10 +57,10 @@ class App extends React.Component {
   render () {
   	return (
       <div className="app">
-        <header className="navbar"><h1>Bad Movies</h1></header> 
-        
+        <header className="navbar"><h1>Bad Movies</h1></header>
+
         <div className="main">
-          <Search swapFavorites={this.swapFavorites} showFaves={this.state.showFaves}/>
+          <Search swapFavorites={this.swapFavorites} showFaves={this.state.showFaves} getMovies={this.getMovies}/>
           <Movies movies={this.state.showFaves ? this.state.favorites : this.state.movies} showFaves={this.state.showFaves}/>
         </div>
       </div>
