@@ -5,7 +5,8 @@ class Search extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      genres: []
+      genres: [],
+      currentGenre: null // when set properly currentGenre should be an id number string
     };
   }
 
@@ -20,8 +21,15 @@ class Search extends React.Component {
       url: '/movies/genres',
     })
       .then(response => {
-        console.log(response.data);
-        this.setState({genres: response.data});
+        // console.log('genre fetch data:', response.data);
+        if (this.state.currentGenre === null) {
+          this.setState({
+            genres: response.data,
+            currentGenre: response.data[0].id.toString()
+          });
+        } else {
+          this.setState({genres: response.data});
+        }
       })
       .catch(err => {
         console.log('error fetching genre list:', err);
@@ -34,18 +42,16 @@ class Search extends React.Component {
         <button onClick={() => {this.props.swapFavorites()}}>{this.props.showFaves ? "Show Results" : "Show Favorites"}</button>
         <br/><br/>
 
-        {/* Make the select options dynamic from genres !!! */}
-        {/* How can you tell which option has been selected from here? */}
-
-        <select>
-          <option value="theway">The Way</option>
-          <option value="thisway">This Way</option>
-          <option value="thatway">That Way</option>
+        <select onChange={(e)=>{
+          this.setState({currentGenre: e.target.value})
+          }}>
+          {this.state.genres.map((e)=>{
+            return (<option key={e.id} value={e.id}>{e.name}</option>)
+          })}
         </select>
         <br/><br/>
 
         <button>Search</button>
-
       </div>
     );
   }
