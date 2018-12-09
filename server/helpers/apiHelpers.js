@@ -16,7 +16,7 @@ const { API_KEY } = require('../../api-key.js');
 exports.fetch = {};
 
 exports.fetch.genreList = () => {
-  axios({
+  return axios({
     method: 'get',
     url: 'https://api.themoviedb.org/3/genre/movie/list',
     params: {
@@ -24,12 +24,13 @@ exports.fetch.genreList = () => {
       language: 'en-US'
     }
   })
-    .then(response => {
-      console.log(response.data.genres);
-    })
-    .catch(err => {
-      console.log('error fetching genre list:', err);
-    });
+  .then(response => {
+    // console.log(response.data.genres);
+    return response.data.genres;
+  })
+  // .catch(err => {
+  //   console.log('error fetching genre list:', err);
+  // });
 };
 
 // Example IDS:
