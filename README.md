@@ -1,15 +1,15 @@
 # Bad Movies
 A teaching assignment designed to cover the fundamentals of fullstack
 
-Learn the fundamentals of application structure and database integration by making a web app that renders horrible movies based on certain search criteria. The user can then opt to save a movie to their favorites and also delete items from their favorites that they don't like anymore. 
+Learn the fundamentals of application structure and database integration by making a web app that renders horrible movies based on certain search criteria. The user can then opt to save a movie to their favorites and also delete items from their favorites that they don't like anymore.
 
-### Basic functionality (CRUD app minus update functionality): 
+### Basic functionality (CRUD app minus update functionality):
 
-[ ] User should be allowed to search for movies by genre
+[x] User should be allowed to search for movies by genre
 
-[ ] User should be given a list of official genres to choose from
+[x] User should be given a list of official genres to choose from
 
-[ ] Movies should be sorted to show the movies with horrible ratings first (figure out how to modify the API endpoint to do so)
+[x] Movies should be sorted to show the movies with horrible ratings first (figure out how to modify the API endpoint to do so)
 
 [ ] User should be able to click on a movie within the search results in order to save it to their favorites (mySQL database, you must make your own Schema)
 

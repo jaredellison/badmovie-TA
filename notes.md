@@ -1,5 +1,3 @@
-
-
 # Bad Movies Mock TA Notes
 
 *Start time 10:30*
@@ -93,12 +91,12 @@ Mysql
     - [ ] CREATE: query to insert new favorite
     - [ ] READ: query to list all favorites
     - [x] UPDATE: not required
-    - [ ] Delete: query to remove a favorite
-  - [ ] Manually manipulate database
+    - [x] Delete: query to remove a favorite
+  - [x] Manually manipulate database
 
-- [ ] Integrate database manipulation with server
+- [x] Integrate database manipulation with server
 
-  - [ ] Test with CURL or postman
+  - [x] Test with CURL or postman
 
 - [ ] Integrate client with server database manipulation
 
@@ -137,4 +135,71 @@ TMDB Genres:
 };
 
 ```
+
+Movie result:
+
+```javascript
+{
+  adult: false
+  backdrop_path: "/yPt0lqZp93MeOEkml0mTZQnsqNs.jpg"
+  genre_ids: (4) [28, 12, 80, 35]
+  id: 567553
+  original_language: "ja"
+  original_title: "変身講座 ルパンエックス・パトレンエックス編 快盗戦隊ルパンレンジャーVS警察戦隊パトレンジャー"
+  overview: "Kaitou Sentai Lupinranger VS Keisatsu Sentai Patranger Transformation Course: Lupin X - Patren X Edition is the third installment of the Kaitou Sentai Lupinranger VS Keisatsu Sentai Patranger Transformation Course web series. It was released to accompany episode 22 of the series."
+  popularity: 0
+  poster_path: null
+  release_date: "2018-07-08"
+  title: "Kaitou Sentai Lupinranger VS Keisatsu Sentai Patranger Transformation Course: Lupin X - Patren X Edition"
+  video: false
+  vote_average: 0
+  vote_count: 0
+}
+```
+
+DB Schema:
+
+```javascript
+{
+ 	db_id:
+  title: "Kaitou Sentai Lupinranger VS Keisatsu Sentai Patranger Transformation Course: Lupin X - Patren X Edition"
+  id: 567553
+  release_date: "2018-07-08"
+  poster_path: null
+  backdrop_path: "/yPt0lqZp93MeOEkml0mTZQnsqNs.jpg"
+  vote_average: 0
+}
+```
+
+# To Do:
+
+
+
+- [x] remove so many console logs
+
+- [x] fix database stringification
+
+- [x] Fix SQL insert query so it doesn't insert duplicates
+
+- [x] ReRender movies when showFaves status
+
+- [x] clarify callback flow in server application
+
+  - [x] Models should take a callback and pass it an error and something else
+
+- [x] allow deletion when showing favorites and a movie is clicked
+
+
+
+
+### For TA:
+
+- [ ] Memorize basic SQL queries 
+  - http://www.mysqltutorial.org/mysql-cheat-sheet.aspx
+- [ ] Learn about how and when mysql npm module stringifies 
+  - Use ? to stringify in mysql npm module
+  - Use ? to stringify in mysql npm module
+- [ ] Read codebase very carefully before digging in anywhere
+
+
 
