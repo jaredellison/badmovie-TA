@@ -1,28 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
 // import AnyComponent from './components/filename.jsx'
-import Search from './components/Search.jsx'
-import Movies from './components/Movies.jsx'
+import Search from './components/Search.jsx';
+import Movies from './components/Movies.jsx';
 
 import axios from 'axios';
 
 class App extends React.Component {
   constructor(props) {
-  	super(props)
-  	this.state = {
-      movies: [{deway: "movies"}],
-      favorites: [{deway: "favorites"}],
-      showFaves: false,
+    super(props);
+    this.state = {
+      movies: [],
+      favorites: [],
+      showFaves: false
     };
 
     // Bind event handler methods to be passed as props
     this.getMovies = this.getMovies.bind(this);
+    this.getFaves = this.getFaves.bind(this);
+    this.saveMovie = this.saveMovie.bind(this);
+    this.deleteMovie = this.deleteMovie.bind(this);
+    this.swapFavorites = this.swapFavorites.bind(this);
   }
 
-  getMovies(genreId = '37') {
-    // make an axios request to your server on the GET SEARCH endpoint
-    console.log('getMovies called! with id:', genreId)
+  getMovies(genreId) {
     axios({
       method: 'get',
       url: '/movies/search',
@@ -30,38 +31,89 @@ class App extends React.Component {
         genreId: genreId
       }
     })
+      .then(response => {
+        this.setState({ movies: response.data.results });
+      })
+      .catch(err => {
+        console.log('error fetching search:', err);
+      });
+  }
+
+  getFaves() {
+    axios({
+      method: 'get',
+      url: '/movies/favorites',
+    })
     .then(response => {
-      console.log('search fetch data:', response.data.results);
-      this.setState({movies: response.data.results});
+      this.setState({ favorites: response.data});
     })
     .catch(err => {
       console.log('error fetching search:', err);
     });
   }
 
-  saveMovie() {
-    // same as above but do something diff
+  saveMovie(movieId) {
+    let targetMovie = this.state.movies.filter((e) => {return e['id'].toString() === movieId})[0];
+    axios({
+      method: 'post',
+      url: '/movies/save',
+      data: targetMovie
+    })
+      .then(response => {
+        console.log('favorite saved sucessfully');
+      })
+      .catch(err => {
+        console.log('error saving favorite:', err);
+      });
   }
 
-  deleteMovie() {
-    // same as above but do something diff
+
+  deleteMovie(movieId) {
+    let targetMovie = this.state.favorites.filter((e) => {return e['id'].toString() === movieId})[0];
+    axios({
+      method: 'delete',
+      url: '/movies/delete',
+      data: targetMovie
+    })
+      .then(response => {
+        console.log('favorite deleted sucessfully');
+      })
+      .then(() => {
+        this.getFaves();
+      })
+      .catch(err => {
+        console.log('error deleting favorite:', err);
+      });
   }
 
   swapFavorites() {
-  //dont touch
+    //dont touch
     this.setState({
       showFaves: !this.state.showFaves
     });
   }
 
-  render () {
-  	return (
+  render() {
+    return (
       <div className="app">
-        <header className="navbar"><h1>Bad Movies</h1></header>
+        <header className="navbar">
+          <h1>Bad Movies</h1>
+        </header>
 
         <div className="main">
-          <Search swapFavorites={this.swapFavorites} showFaves={this.state.showFaves} getMovies={this.getMovies}/>
-          <Movies movies={this.state.showFaves ? this.state.favorites : this.state.movies} showFaves={this.state.showFaves}/>
+          <Search
+            swapFavorites={this.swapFavorites}
+            showFaves={this.state.showFaves}
+            getFaves={this.getFaves}
+            getMovies={this.getMovies}
+          />
+          <Movies
+            movies={
+              this.state.showFaves ? this.state.favorites : this.state.movies
+            }
+            showFaves={this.state.showFaves}
+            saveMovie={this.saveMovie}
+            deleteMovie={this.deleteMovie}/>
         </div>
       </div>
     );
