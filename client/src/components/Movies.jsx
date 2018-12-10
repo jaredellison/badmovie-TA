@@ -35,7 +35,17 @@ class Movies extends React.Component {
             e.release_date.split('-')[0] : '?';
 
           return (
-            <li className="movie_item" key={e.id}>
+            <li className="movie_item" key={e.id} data-id={e.id}
+            onClick={(event) => {
+            let clickedId = event.currentTarget.dataset.id.toString();
+            if (this.props.showFaves) {
+              console.log('deleting movie on click!');
+              this.props.deleteMovie(clickedId);
+            } else {
+              console.log('saving movie on click!');
+              this.props.saveMovie(clickedId);
+            }
+            }}>
               {imageTag}
               <div className="movie_description">
                 <h2>{e.title}</h2>
