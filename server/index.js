@@ -14,9 +14,7 @@ app.use(morgan('dev'));
 // Due to express, when you load the page, it doesn't make a get request to '/', it simply serves up the dist folder
 app.use(express.static(__dirname + '/../client/dist'));
 
-//OPTION 2: Use Express Router
-//IF you decide to go with this option delete OPTION 1 to continue
-//Routes
+// Use Express Router
 const movieRoutes = require('./routes/movieRoutes.js');
 //Use routes
 app.use('/movies', movieRoutes);

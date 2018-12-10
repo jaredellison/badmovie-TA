@@ -2,11 +2,13 @@ const { db } = require('../../db/sql');
 
 module.exports = {
   get: callback => {
+    console.log('movieModel get called')
     let selectQ = `
     select * from favorites;
     `;
-    db.query(selectQ, (err, movies) => {
-      callback(movies);
+    db.query(selectQ, (err, result) => {
+      console.log(result.poster_path);
+      callback(err, result);
     });
   },
 
@@ -15,25 +17,34 @@ module.exports = {
     insert into favorites
     (title, id, release_date, poster_path, backdrop_path, vote_average)
     values (
-    "?",
-    "?",
-    "?",
-    "?",
-    "?",
-    "?"
-    );
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?
+    )
+    ;
     `;
 
-    db.query(insertQ, params, err => {
-      if (err) console.log('error inserting into database');
-      callback();
+    let insertId = [params[1]];
+
+    db.query('select * from favorites where id = ?;', insertId, (err, result) => {
+      if (err){
+        console.log('error inserting into database', err)
+        return;
+      };
+      if (result.length === 0) {
+        db.query(insertQ, params, err => {
+          callback(err);
+        });
+      }
     });
   },
 
-  delete: (movieId, callback) => {
-    db.query('delete from favorites where id = ?', [movieId], err => {
-      if (err) console.log('error deleting from database');
-      callback();
+  delete: (params, callback) => {
+    db.query('delete from favorites where id = ?', params, (err) => {
+      callback(err);
     });
   }
 };
