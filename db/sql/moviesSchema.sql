@@ -6,12 +6,12 @@ use badmovies;
 
 create table if not exists favorites (
   db_id int auto_increment primary key,
-  title VARCHAR(500),
-  id VARCHAR(50),
-  release_date VARCHAR(50),
-  poster_path VARCHAR(300),
-  backdrop_path VARCHAR(300),
-  vote_average VARCHAR(10)
+  title varchar(500),
+  id int,
+  release_date varchar(50),
+  poster_path varchar(300),
+  backdrop_path varchar(300),
+  vote_average varchar(10)
 );
 
 
